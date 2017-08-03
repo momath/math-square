@@ -1,0 +1,24 @@
+{
+    "compilerOptions": {
+        "module": "es2015",
+        "target": "es2015",
+        "noImplicitAny": true,
+        "noImplicitThis": true,
+        "sourceMap": true,
+        "alwaysStrict": true,
+        "strictNullChecks": true
+    },
+    "include": [
+        "types/*",
+        "behs/*"
+    ],
+    "files": [
+        "main.ts",
+        "sensors.ts",
+        "display.ts",
+        "floor.ts",
+        "calendar.ts",
+        "threectx.ts",
+        "p5beh.ts"
+    ]
+}

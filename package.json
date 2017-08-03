@@ -1,0 +1,47 @@
+{
+  "name": "momath-square",
+  "version": "1.0.0",
+  "description": "MoMath Math Square behaviors",
+  "main": "app.js",
+  "dependencies": {
+    "electron": "^1.7.5",
+    "electron-log": "^2.2.7",
+    "jspm": "^0.16.53"
+  },
+  "devDependencies": {
+    "@types/awesomplete": "^1.1.5",
+    "@types/gapi.calendar": "^3.0.1",
+    "@types/systemjs": "^0.20.3",
+    "@types/three": "^0.84.19",
+    "@types/tween.js": "^0.0.31",
+    "electron-zip-packager": "*",
+    "typescript": "^2.4.2"
+  },
+  "scripts": {
+    "postinstall": "jspm install",
+    "start": "electron .",
+    "dev": "electron . --dev"
+  },
+  "repository": {
+    "type": "git",
+    "url": "gitlab.com/momath/math-square"
+  },
+  "author": "",
+  "license": "MIT",
+  "jspm": {
+    "directories": {
+      "packages": "packages"
+    },
+    "dependencies": {
+      "awesomplete": "npm:awesomplete@1.1.1",
+      "p5": "npm:p5@^0.5.9",
+      "three": "npm:three@~0.85.2",
+      "ts": "github:frankwallis/plugin-typescript@^7.0.6",
+      "tween.js": "npm:tween.js@^16.6.0"
+    },
+    "devDependencies": {
+      "ts-runtime": "npm:babel-runtime@^5.8.24",
+      "typescript": "npm:typescript@^2.0.7"
+    }
+  }
+}

@@ -1,0 +1,15 @@
+#!/bin/bash -ex
+cd `dirname $0`
+npm install
+BEHS=`echo behs/*.ts`
+for f in behs/*.js ; do
+	if [[ ! -f ${f%.js}.ts ]] ; then
+		BEHS="$BEHS $f"
+	fi
+done
+DEPS="main $BEHS"
+JSPM=`npm bin`/jspm
+$JSPM clean
+$JSPM bundle ${DEPS//[[:space:]]/ + } build.js
+rm -f *.zip
+`npm bin`/electron-zip-packager . 'Math Square' --icon icon.png --overwrite --platform win32 --arch x64

@@ -1,0 +1,22 @@
+/node_modules/
+/packages/
+*.map
+/display.js
+/floor.js
+/main.js
+/scheduler.js
+/calendar.js
+/sensors.js
+/threectx.js
+/p5beh.js
+/lib/logo.js
+/behs/debug.js
+/behs/img.js
+/behs/life.js
+/behs/lsystem.js
+/behs/momath-logo.js
+/behs/sensor.js
+/build.js
+/prod.zip
+/Math Square-win32-x64/
+/Math Square-win32-x64.zip

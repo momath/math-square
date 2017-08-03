@@ -1,0 +1,49 @@
+body {
+  background-color: #000;
+  margin: 0px;
+  overflow: hidden;
+  color: #aaa;
+}
+#form {
+  width:100%;
+}
+input.coord {
+  width: 8ex;
+}
+#msg {
+  border: 1px solid #777;
+  background-color: #222;
+  color: #ccc;
+  padding: 5px;
+  font-family: sans-serif;
+  overflow: auto;
+}
+#msg-pos {
+  color: #ffc;
+  font-weight: bold;
+}
+#msg-cal {
+  color: #fcc;
+  font-weight: bold;
+}
+#msg-floor {
+  color: #fcf;
+  font-weight: bold;
+}
+.pos {
+  position: absolute;
+  top: -32px;
+}
+#sw {
+  left: 0px;
+}
+#se {
+  right: 0px;
+}
+#scene {
+  line-height: 1px;
+  position: fixed;
+  bottom: 0px;
+  left: 0px;
+  z-index: 2;
+}

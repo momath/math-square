@@ -1,0 +1,40 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Math Square</title>
+    <link rel='stylesheet' href='style.css'>
+    <link rel='stylesheet' href='packages/npm/awesomplete@1.1.1/awesomplete.css'>
+    <script src="packages/system.js"></script>
+    <script src="config.js"></script>
+    <script src="build.js"></script>
+    <script type="text/javascript">
+      function main() {
+	SystemJS.import('main');
+      }
+    </script>
+  </head>
+  <body onload='main()'>
+    <form id='form' method='GET'>
+      <label>override: <input name='nosched' type='checkbox' value='1'></label>
+      <label>behavior:
+	<input type='text' name='beh' size='24' list='behavior-list' autocomplete='on'>
+	<datalist id='behavior-list'>
+	</datalist>
+      </label>
+      <label id='src' style="visibility:hidden">src:
+	<input type='text' name='src' autocomplete='url'>
+      </label>
+      <input type='submit' value='go'>
+      <label>pos:
+	<input type='number' name='x' class='coord' step='1'>,
+	<input type='number' name='y' class='coord' step='1'>
+      </label>
+    </form>
+    <div id="msg"></div>
+    <div id="scene">
+      <img id='sw' class='pos' src='images/sw.png'>
+      <img id='se' class='pos' src='images/se.png'>
+    </div>
+  </body>
+</html>
