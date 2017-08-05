@@ -1,11 +1,11 @@
 /* MoMath Math Square Behavior
  *
- *        Title: Maximal Graph
- *  Description: Displays maximal graph with each user as a node
+ *        Title: Center of Mass
+ *  Description: Displays center of mass of users
  * Scheduler ID: 
  *    Framework: P5
  *       Author: Brian Sapozhnikov <brian.sapozhnikov@gmail.com>, ***ENTER NAMES HERE***
- *      Created: 2017-05-23
+ *      Created: 2017-08-05
  *       Status: works
  */
 
@@ -13,15 +13,18 @@ import P5Behavior from 'p5beh';
 
 const pb = new P5Behavior();
 
+const CENTER_DIAMETER = 50;
+
 pb.draw = function (floor, p) {
   this.clear();
-  for (let user1 of floor.users) {
-    for(let user2 of floor.users) {
-        this.stroke('#ffff7D')
-        this.line(user1.x, user1.y, user2.x, user2.y)
-    }
-    pb.drawUser(user1);
+  let x = 0, y = 0, n = 0;
+  for (let user of floor.users) {
+    x += user.x;
+    y += user.y;
+    n++;
+    pb.drawUser(user);
   }
+  this.ellipse(x / n, y / n, CENTER_DIAMETER, CENTER_DIAMETER);
 };
 
 
