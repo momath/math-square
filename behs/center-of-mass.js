@@ -4,7 +4,7 @@
  *  Description: Displays center of mass of users
  * Scheduler ID: 
  *    Framework: P5
- *       Author: Brian Sapozhnikov <brian.sapozhnikov@gmail.com>,  Lise Ho <lise.ho6@gmail.com>, ***ENTER NAMES HERE***
+ *       Author: Brian Sapozhnikov <brian.sapozhnikov@gmail.com>,  Lise Ho <lise.ho6@gmail.com>, Shaan Sheikh <shaansweb@gmail.com>
  *      Created: 2017-08-05
  *       Status: works
  */
