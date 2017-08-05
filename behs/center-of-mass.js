@@ -35,18 +35,19 @@ const drawCircle = function(x, y, r, color) {
   this.ellipse(x, y, r * 2, r * 2);
 };
 
-const drawLine = function(x1, y1, x2, y2) {
-    this.line(x1, y1, x2, y2);
+const drawLine = function(x1, y1, x2, y2, strokeColor, strokeWeight) {
+  this.strokeWeight(strokeWeight);
+  this.stroke(strokeColor);
+
+  this.line(x1, y1, x2, y2);
+
+  // Reset defaults for stroke colors.
+  this.strokeWeight(1);
+  this.stroke(COLORS.GRAY);
 };
+
 const drawCenterMassConnectors = function (x1, y1, x2, y2) {
-    this.strokeWeight(MASS_CONNECTORS_STROKE_WEIGHT);
-    this.stroke(COLORS.GREEN);
-
-    this.drawLine(x1, y1, x2, y2);
-
-    // Reset defaults for stroke colors.
-    this.strokeWeight(1);
-    this.stroke(COLORS.GRAY);
+  this.drawLine(x1, y1, x2, y2, COLORS.GREEN, MASS_CONNECTORS_STROKE_WEIGHT);
 };
 
 /** Lifecycle Functions **/
