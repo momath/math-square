@@ -19,7 +19,8 @@ const COLORS = {
   RED: [255, 0, 0],
   GREEN: [0, 255, 0],
   BLUE: [0, 0, 255],
-  GRAY: [155, 155, 155]
+  GRAY: [155, 155, 155],
+  BLACK: [0, 0, 0]
 };
 
 const CENTER_RADIUS = 20;
@@ -38,16 +39,19 @@ const drawCircle = function(x, y, r, color) {
 const drawLine = function(x1, y1, x2, y2, strokeColor, strokeWeight) {
   this.strokeWeight(strokeWeight);
   this.stroke(strokeColor);
-
   this.line(x1, y1, x2, y2);
-
-  // Reset defaults for stroke colors.
-  this.strokeWeight(1);
-  this.stroke(COLORS.GRAY);
+  this.restoreDefaults();
 };
 
 const drawCenterMassConnectors = function (x1, y1, x2, y2) {
   this.drawLine(x1, y1, x2, y2, COLORS.GREEN, MASS_CONNECTORS_STROKE_WEIGHT);
+};
+
+const restoreDefaults = function() {
+    // Reset defaults for fill/stroke colors.
+    this.strokeWeight(1);
+    this.stroke(COLORS.GRAY);
+    // this.fill(COLORS.BLACK);
 };
 
 /** Lifecycle Functions **/
@@ -55,6 +59,7 @@ pb.setup = function(p) {
   this.drawCircle = drawCircle;
   this.drawLine = drawLine;
   this.drawCenterMassConnectors = drawCenterMassConnectors;
+  this.restoreDefaults = restoreDefaults;
   goalX = parseInt(Math.random() * Display.width);
   goalY = parseInt(Math.random() * Display.height);
 };
