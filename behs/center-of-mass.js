@@ -32,14 +32,20 @@ const drawCircle = function(x, y, r, color) {
 };
 
 const distToColor = function(d) {
-  const maxDist = this.dist(0, 0, Display.width, Display.height);
-  const MIDPOINT = 0.3; 
+  const corners = [
+    [0, 0], 
+    [0, Display.height],
+    [Display.width, 0],
+    [Display.width, Display.height]
+  ];
+  const dists = corners.map(point => this.dist(point[0], point[1], goalX, goalY));
+  const maxDist = this.max(dists);
+  const MIDPOINT = 0.3;
   const ratio = d / maxDist;
   const red = this.color(255, 0, 0);
   const blue = this.color(0, 0, 255);
   const sat = parseInt(this.abs(ratio - MIDPOINT) * 100);
-  const colStr = 'hsb(' + this.hue(ratio > MIDPOINT ? blue : red) + ', ' + sat + '&, 100%)';
-  //console.log(colStr);
+  const colStr = 'hsb(' + this.hue(ratio > MIDPOINT ? blue : red) + ', ' + sat + '%, 100%)';
   return this.color(colStr);
   /*
   const red = this.color(255, 0, 0);
