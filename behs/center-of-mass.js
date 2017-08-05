@@ -24,7 +24,12 @@ pb.draw = function (floor, p) {
     n++;
     pb.drawUser(user);
   }
-  this.ellipse(x / n, y / n, CENTER_DIAMETER, CENTER_DIAMETER);
+  x /= n;
+  y /= n;  
+  this.ellipse(x, y, CENTER_DIAMETER, CENTER_DIAMETER);
+  for (let user of floor.users) {
+    this.line(user.x, user.y, x, y);
+  }
 };
 
 
