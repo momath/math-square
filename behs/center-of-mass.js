@@ -4,7 +4,7 @@
  *  Description: Displays center of mass of users
  * Scheduler ID: 
  *    Framework: P5
- *       Author: Brian Sapozhnikov <brian.sapozhnikov@gmail.com>, ***ENTER NAMES HERE***
+ *       Author: Brian Sapozhnikov <brian.sapozhnikov@gmail.com>,  Lise Ho <lise.ho6@gmail.com>, ***ENTER NAMES HERE***
  *      Created: 2017-08-05
  *       Status: works
  */
@@ -28,18 +28,18 @@ pb.setup = function(p) {
 
 pb.draw = function(floor, p) {
   this.clear();
-  let x = 0, y = 0, n = 0;
+  let centerX = 0, centerY = 0, numUsers = 0;
   for (let user of floor.users) {
-    x += user.x;
-    y += user.y;
-    n++;
+    centerX += user.x;
+    centerY += user.y;
+    numUsers++;
     pb.drawUser(user);
   }
-  x /= n;
-  y /= n;
-  this.drawCircle(x, y, CENTER_RADIUS);
+  centerX /= numUsers;
+  centerY /= numUsers;
+  this.drawCircle(centerX, centerY, CENTER_RADIUS);
   for (let user of floor.users) {
-    this.line(user.x, user.y, x, y);
+    this.line(user.x, user.y, centerX, centerY);
   }
 };
 
