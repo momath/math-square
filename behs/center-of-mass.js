@@ -4,7 +4,7 @@
  *  Description: Displays center of mass of users
  * Scheduler ID: 
  *    Framework: P5
- *       Author: Brian Sapozhnikov <brian.sapozhnikov@gmail.com>,  Lise Ho <lise.ho6@gmail.com>, Shaan Sheikh <shaansweb@gmail.com>
+ *       Author: Brian Sapozhnikov <brian.sapozhnikov@gmail.com>,  Lise Ho <lise.ho6@gmail.com>, Shaan Sheikh <shaansweb@gmail.com>, Mary Taft <mary.taft97@gmail.com>
  *      Created: 2017-08-05
  *       Status: works
  */
@@ -15,23 +15,29 @@ import * as Display from 'display';
 
 const pb = new P5Behavior();
 
-const CENTER_RADIUS = 20;
+const COLORS = {
+  RED: [255, 0, 0]
+};
 
-// Create Constants for hole specs.
-const HOLE_DIAMETER = 20;
-const HOLE_X = parseInt(Math.random() * Display.width);
-const HOLE_Y = parseInt(Math.random() * Display.height);
-console.log(Display.width);
-console.log(Display.height);
+
+const CENTER_RADIUS = 20;
+const GOAL_RADIUS = 10;
+const goalX, goalY = parseInt(Math.random() * Display.width);
+
 
 /** Helper Functions **/
-const drawCircle = function(x, y, r) {
+const drawCircle = function(x, y, r, color) {
+  if (color) {
+    this.fill(color);
+  }
   this.ellipse(x, y, r * 2, r * 2);
 };
 
 /** Lifecycle Functions **/
 pb.setup = function(p) {
   this.drawCircle = drawCircle;
+  goalX = parseInt(Math.random() * Display.width);
+  goalY = parseInt(Math.random() * Display.height);
 };
 
 pb.draw = function(floor, p) {
@@ -50,9 +56,7 @@ pb.draw = function(floor, p) {
     this.line(user.x, user.y, centerX, centerY);
   }
 
-  let holeC = this.color(202,22,13); // Reddish color
-  this.fill(holeC);
-  this.ellipse(HOLE_X, HOLE_Y, HOLE_DIAMETER, HOLE_DIAMETER);
+  this.drawCircle(goalX, goalY, GOAL_RADIUS, COLORS.RED);
 };
 
 /** Export **/
