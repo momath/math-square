@@ -21,6 +21,8 @@ const CENTER_RADIUS = 20;
 const HOLE_DIAMETER = 20;
 const HOLE_X = parseInt(Math.random() * Display.width);
 const HOLE_Y = parseInt(Math.random() * Display.height);
+console.log(Display.width);
+console.log(Display.height);
 
 /** Helper Functions **/
 const drawCircle = function(x, y, r) {
@@ -59,6 +61,6 @@ export const behavior = {
   init: pb.init.bind(pb),
   frameRate: 'sensors',
   render: pb.render.bind(pb),
-  numGhosts: 4
+  numGhosts: 2
 };
 export default behavior;
