@@ -11,10 +11,16 @@
 
 /** Imports and Constants **/
 import P5Behavior from 'p5beh';
+import * as Display from 'display';
 
 const pb = new P5Behavior();
 
 const CENTER_RADIUS = 20;
+
+// Create Constants for hole specs.
+const HOLE_DIAMETER = 20;
+const HOLE_X = parseInt(Math.random() * Display.width);
+const HOLE_Y = parseInt(Math.random() * Display.height);
 
 /** Helper Functions **/
 const drawCircle = function(x, y, r) {
@@ -41,6 +47,10 @@ pb.draw = function(floor, p) {
   for (let user of floor.users) {
     this.line(user.x, user.y, centerX, centerY);
   }
+
+  let holeC = this.color(202,22,13); // Reddish color
+  this.fill(holeC);
+  this.ellipse(HOLE_X, HOLE_Y, HOLE_DIAMETER, HOLE_DIAMETER);
 };
 
 /** Export **/
