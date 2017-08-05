@@ -16,8 +16,8 @@ import * as Display from 'display';
 const pb = new P5Behavior();
 
 const COLORS = {
-  RED: [255, 0, 0];
-}
+  RED: [255, 0, 0]
+};
 
 const CENTER_RADIUS = 20;
 const GOAL_RADIUS = 10;
@@ -54,7 +54,6 @@ pb.draw = function(floor, p) {
     this.line(user.x, user.y, centerX, centerY);
   }
 
-  let goalC = this.color(202,22,13); // Reddish color
   this.drawCircle(goalX, goalY, GOAL_RADIUS, COLORS.RED);
 };
 
