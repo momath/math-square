@@ -9,13 +9,24 @@
  *       Status: works
  */
 
+/** Imports and Constants **/
 import P5Behavior from 'p5beh';
 
 const pb = new P5Behavior();
 
-const CENTER_DIAMETER = 50;
+const CENTER_RADIUS = 20;
 
-pb.draw = function (floor, p) {
+/** Helper Functions **/
+const drawCircle = function(x, y, r) {
+  this.ellipse(x, y, r * 2, r * 2);
+};
+
+/** Lifecycle Functions **/
+pb.setup = function(p) {
+  this.drawCircle = drawCircle;
+};
+
+pb.draw = function(floor, p) {
   this.clear();
   let x = 0, y = 0, n = 0;
   for (let user of floor.users) {
@@ -25,14 +36,14 @@ pb.draw = function (floor, p) {
     pb.drawUser(user);
   }
   x /= n;
-  y /= n;  
-  this.ellipse(x, y, CENTER_DIAMETER, CENTER_DIAMETER);
+  y /= n;
+  this.drawCircle(x, y, CENTER_RADIUS);
   for (let user of floor.users) {
     this.line(user.x, user.y, x, y);
   }
 };
 
-
+/** Export **/
 export const behavior = {
   title: "Center of Mass",
   init: pb.init.bind(pb),
