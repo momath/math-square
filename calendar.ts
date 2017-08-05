@@ -29,6 +29,7 @@ export const behaviorsByID = [
   /* 21 */ 'life',
   /* 22 */ 'gravity',
   /* 23 */ 'maximal-graph',
+  /* 24 */ 'center-of-mass'
 ];
 
 const fallback = ['nltmaze', 'sokoban', 'balloon', 'voronoi-color', 'icemaze', 'spanning-tree'];
