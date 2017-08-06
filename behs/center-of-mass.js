@@ -51,7 +51,6 @@ const restoreDefaults = function() {
     // Reset defaults for fill/stroke colors.
     this.strokeWeight(1);
     this.stroke(COLORS.GRAY);
-    // this.fill(COLORS.BLACK);
 };
 
 /** Lifecycle Functions **/
