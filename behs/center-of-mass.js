@@ -95,6 +95,7 @@ pb.setup = function(p) {
 pb.draw = function(floor, p) {
   this.clear();
   let centerX = 0, centerY = 0, numUsers = 0;
+
   for (let user of floor.users) {
     centerX += user.x;
     centerY += user.y;
@@ -104,11 +105,11 @@ pb.draw = function(floor, p) {
   }
   centerX /= numUsers;
   centerY /= numUsers;
-  const distToGoal = this.dist(centerX, centerY, this.goalX, this.goalY);
-  this.drawCircle(centerX, centerY, CENTER_RADIUS, this.distToColor(distToGoal));
   for (let user of floor.users) {
     this.drawCenterMassConnectors(user.x, user.y, centerX, centerY);
   }
+  const distToGoal = this.dist(centerX, centerY, this.goalX, this.goalY);
+  this.drawCircle(centerX, centerY, CENTER_RADIUS, this.distToColor(distToGoal));
 
   this.drawGoal();
   var distance = ((centerX-this.goalX)**2 + (centerY-this.goalY)**2)**0.5
