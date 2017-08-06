@@ -106,7 +106,7 @@ pb.draw = function(floor, p) {
   centerX /= numUsers;
   centerY /= numUsers;
   for (let user of floor.users) {
-      this.drawCenterMassConnectors(user.x, user.y, centerX, centerY);
+    this.drawCenterMassConnectors(user.x, user.y, centerX, centerY);
   }
   const distToGoal = this.dist(centerX, centerY, this.goalX, this.goalY);
   this.drawCircle(centerX, centerY, CENTER_RADIUS, this.distToColor(distToGoal));
