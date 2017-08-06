@@ -34,12 +34,12 @@ const drawCircle = function(x, y, r, color) {
   this.ellipse(x, y, r * 2, r * 2);
 };
 
-const drawGoal = function(p){
+const drawGoal = function(){
 
   this.drawCircle(this.goalX, this.goalY, GOAL_RADIUS, COLORS.RED);
 }
 
-const updateGoal = function(p){
+const updateGoal = function(){
   this.goalX = parseInt(Math.random() * Display.width * (2/3) + (Display.width * (1/6)));
   this.goalY = parseInt(Math.random() * Display.height * (2/3) + (Display.height * (1/6)));
 }
@@ -70,7 +70,7 @@ pb.draw = function(floor, p) {
     this.line(user.x, user.y, centerX, centerY);
   }
 
-  this.drawGoal(p);
+  this.drawGoal();
   var distance = ((centerX-this.goalX)**2 + (centerY-this.goalY)**2)**0.5
   if ( distance <30)   {
     this.updateGoal(p);
