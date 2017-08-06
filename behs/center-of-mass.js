@@ -88,11 +88,11 @@ const distToColor = function(d) {
   return this.color(colStr);
 };
 
-const rotatePolygon(points, centerX, centerY){
+const rotatePolygon = function(points, centerX, centerY, angle){
   
   this.translate(centerX, centerY);
   this.angleMode(this.RADIANS);
-  this.rotate(this.PI/12);
+  this.rotate(angle);
   this.rect(-50,-50,100,100);
 
 };
@@ -111,18 +111,7 @@ pb.setup = function(p) {
   this.updateGoal();
 };
 
-  /*
-  //this.rect(0,0,20,40);
-  this.translate(Display.width/2+170,50);
-  this.rect(0,0,5,5);
-  this.angleMode(this.RADIANS);
-  this.rotate(this.PI/3);
-  this.rect(0,0,20,40);
-  this.translate(40, 40);
-  this.rect(0,0,20,40);
-  //this.rect(Display.width/2,Display.width/2,20,40);
-  */
-
+var angle = 0;
 pb.draw = function(floor, p) {
   this.clear();
   if(!this.gameOver){
@@ -146,15 +135,19 @@ pb.draw = function(floor, p) {
 
     this.drawGoal();
     var distance = ((centerX-this.goalX)**2 + (centerY-this.goalY)**2)**0.5
-    if ( distance <30)   {
-      //this.updateGoal(p);
+    if (distance <30) {
       this.gameOver = 1;
     }
 
 
   } else {
     this.translate(0,0);
-    this.rotatePolygon(null, this.goalX, this.goalY);
+    this.rotatePolygon(null, this.goalX, this.goalY, angle);
+    angle += this.PI/24;
+    if(angle >= 2*this.PI){
+      this.gameOver = 0;
+      this.updateGoal(p);
+    }    
   }
 };
 
