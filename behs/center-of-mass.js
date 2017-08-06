@@ -50,7 +50,7 @@ const drawCenterMassConnectors = function (x1, y1, x2, y2) {
 const restoreDefaults = function() {
     // Reset defaults for fill/stroke colors.
     this.strokeWeight(1);
-    this.stroke(COLORS.GRAY);
+    this.stroke(COLORS.BLACK);
 };
 
 const drawGoal = function(){
