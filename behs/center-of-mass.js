@@ -53,14 +53,43 @@ const restoreDefaults = function() {
     this.stroke(COLORS.GRAY);
 };
 
+const drawGoal = function(){
+  this.drawCircle(this.goalX, this.goalY, GOAL_RADIUS, COLORS.RED);
+};
+
+const updateGoal = function(){
+  this.goalX = parseInt(Math.random() * Display.width * (2/3) + (Display.width * (1/6)));
+  this.goalY = parseInt(Math.random() * Display.height * (2/3) + (Display.height * (1/6)));
+};
+
+const distToColor = function(d) {
+  const corners = [
+    [0, 0], 
+    [0, Display.height],
+    [Display.width, 0],
+    [Display.width, Display.height]
+  ];
+  const dists = corners.map(point => this.dist(point[0], point[1], this.goalX, this.goalY));
+  const maxDist = this.max(dists);
+  const MIDPOINT = 0.5;
+  const ratio = d / maxDist;
+  const red = this.color(255, 0, 0);
+  const blue = this.color(0, 0, 255);
+  const sat = parseInt(this.abs(ratio - MIDPOINT) * 100);
+  const colStr = 'hsb(' + this.hue(ratio > MIDPOINT ? blue : red) + ', ' + sat + '%, 100%)';
+  return this.color(colStr);
+};
+
 /** Lifecycle Functions **/
 pb.setup = function(p) {
   this.drawCircle = drawCircle;
   this.drawLine = drawLine;
   this.drawCenterMassConnectors = drawCenterMassConnectors;
   this.restoreDefaults = restoreDefaults;
-  goalX = parseInt(Math.random() * Display.width);
-  goalY = parseInt(Math.random() * Display.height);
+  this.drawGoal = drawGoal;
+  this.distToColor = distToColor;
+  this.updateGoal = updateGoal;
+  this.updateGoal();
 };
 
 pb.draw = function(floor, p) {
@@ -71,15 +100,21 @@ pb.draw = function(floor, p) {
     centerY += user.y;
     numUsers++;
     pb.drawUser(user);
+
   }
   centerX /= numUsers;
   centerY /= numUsers;
-  this.drawCircle(centerX, centerY, CENTER_RADIUS);
+  const distToGoal = this.dist(centerX, centerY, this.goalX, this.goalY);
+  this.drawCircle(centerX, centerY, CENTER_RADIUS, this.distToColor(distToGoal));
   for (let user of floor.users) {
     this.drawCenterMassConnectors(user.x, user.y, centerX, centerY);
   }
 
-  this.drawCircle(goalX, goalY, GOAL_RADIUS, COLORS.RED);
+  this.drawGoal();
+  var distance = ((centerX-this.goalX)**2 + (centerY-this.goalY)**2)**0.5
+  if ( distance <30)   {
+    this.updateGoal(p);
+  }
 };
 
 /** Export **/
@@ -88,6 +123,6 @@ export const behavior = {
   init: pb.init.bind(pb),
   frameRate: 'sensors',
   render: pb.render.bind(pb),
-  numGhosts: 4
+  numGhosts: 2
 };
 export default behavior;
