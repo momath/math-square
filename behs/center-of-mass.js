@@ -32,14 +32,14 @@ const drawCircle = function(x, y, r, color) {
 
 
 const drawGoal = function(){
-
   this.drawCircle(this.goalX, this.goalY, GOAL_RADIUS, COLORS.RED);
-}
+};
 
 const updateGoal = function(){
   this.goalX = parseInt(Math.random() * Display.width * (2/3) + (Display.width * (1/6)));
   this.goalY = parseInt(Math.random() * Display.height * (2/3) + (Display.height * (1/6)));
-}
+};
+
 const distToColor = function(d) {
   const corners = [
     [0, 0], 
@@ -47,7 +47,7 @@ const distToColor = function(d) {
     [Display.width, 0],
     [Display.width, Display.height]
   ];
-  const dists = corners.map(point => this.dist(point[0], point[1], goalX, goalY));
+  const dists = corners.map(point => this.dist(point[0], point[1], this.goalX, this.goalY));
   const maxDist = this.max(dists);
   const MIDPOINT = 0.5;
   const ratio = d / maxDist;
@@ -56,26 +56,7 @@ const distToColor = function(d) {
   const sat = parseInt(this.abs(ratio - MIDPOINT) * 100);
   const colStr = 'hsb(' + this.hue(ratio > MIDPOINT ? blue : red) + ', ' + sat + '%, 100%)';
   return this.color(colStr);
-  /*
-  const red = this.color(255, 0, 0);
-  const blue = this.color(0, 0, 255);
-  return this.lerpColor(red, blue, d / maxDist);
-  */
-  /*
-  const green = this.color(0, 255, 0);
-  const red = this.color(255, 0, 0);
-  return this.lerpColor(green, red, d / maxDist);
-  */
-  /*
-  this.colorMode(this.HSL);
-  const red = this.color('#f00');
-  const blue = this.color('#00f');
-  const HSLres = this.lerpColor(red, blue, d / maxDist);
-  const RGBres = [this.red(HSLres), this.green(HSLres), this.blue(HSLres)];
-  this.colorMode(this.RGB);
-  return RGBres;
-  */
-}
+};
 
 
 /** Lifecycle Functions **/
@@ -86,7 +67,7 @@ pb.setup = function(p) {
   this.distToColor = distToColor;
   this.updateGoal = updateGoal;
   this.updateGoal();
-
+};
 
 pb.draw = function(floor, p) {
   this.clear();
@@ -100,7 +81,7 @@ pb.draw = function(floor, p) {
   }
   centerX /= numUsers;
   centerY /= numUsers;
-  const distToGoal = this.dist(centerX, centerY, goalX, goalY);
+  const distToGoal = this.dist(centerX, centerY, this.goalX, this.goalY);
   this.drawCircle(centerX, centerY, CENTER_RADIUS, this.distToColor(distToGoal));
   for (let user of floor.users) {
     this.line(user.x, user.y, centerX, centerY);
@@ -110,10 +91,7 @@ pb.draw = function(floor, p) {
   var distance = ((centerX-this.goalX)**2 + (centerY-this.goalY)**2)**0.5
   if ( distance <30)   {
     this.updateGoal(p);
-  }else{
-    console.log(distance);
   }
-
 };
 
 /** Export **/
