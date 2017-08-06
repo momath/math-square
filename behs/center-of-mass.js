@@ -40,7 +40,7 @@ const distToColor = function(d) {
   ];
   const dists = corners.map(point => this.dist(point[0], point[1], goalX, goalY));
   const maxDist = this.max(dists);
-  const MIDPOINT = 0.3;
+  const MIDPOINT = 0.5;
   const ratio = d / maxDist;
   const red = this.color(255, 0, 0);
   const blue = this.color(0, 0, 255);
