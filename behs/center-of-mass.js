@@ -23,7 +23,6 @@ const COLORS = {
   BLACK: [0, 0, 0]
 };
 
-
 const CENTER_RADIUS = 20;
 const GOAL_RADIUS = 10;
 const goalX, goalY = parseInt(Math.random() * Display.width);
@@ -89,20 +88,29 @@ const distToColor = function(d) {
   return this.color(colStr);
 };
 
+const rotatePolygon(points, centerX, centerY){
+  
+  this.translate(centerX, centerY);
+  this.angleMode(this.RADIANS);
+  this.rotate(this.PI/12);
+  this.rect(-50,-50,100,100);
+
+};
+
 /** Lifecycle Functions **/
 pb.setup = function(p) {
+  this.gameOver = 0;
   this.drawCircle = drawCircle;
   this.drawLine = drawLine;
   this.drawCenterMassConnectors = drawCenterMassConnectors;
   this.restoreDefaults = restoreDefaults;
   this.drawGoal = drawGoal;
   this.distToColor = distToColor;
+  this.rotatePolygon = rotatePolygon;
   this.updateGoal = updateGoal;
   this.updateGoal();
 };
 
-pb.draw = function(floor, p) {
-  this.clear();
   /*
   //this.rect(0,0,20,40);
   this.translate(Display.width/2+170,50);
@@ -115,29 +123,39 @@ pb.draw = function(floor, p) {
   //this.rect(Display.width/2,Display.width/2,20,40);
   */
 
-  let centerX = 0, centerY = 0, numUsers = 0;
+pb.draw = function(floor, p) {
+  this.clear();
+  if(!this.gameOver){
 
-  for (let user of floor.users) {
-    centerX += user.x;
-    centerY += user.y;
-    numUsers++;
-    pb.drawUser(user);
+    let centerX = 0, centerY = 0, numUsers = 0;
 
+    for (let user of floor.users) {
+      centerX += user.x;
+      centerY += user.y;
+      numUsers++;
+      pb.drawUser(user);
+
+    }
+    centerX /= numUsers;
+    centerY /= numUsers;
+    for (let user of floor.users) {
+      this.drawCenterMassConnectors(user.x, user.y, centerX, centerY);
+    }
+    const distToGoal = this.dist(centerX, centerY, this.goalX, this.goalY);
+    this.drawCircle(centerX, centerY, CENTER_RADIUS, this.distToColor(distToGoal));
+
+    this.drawGoal();
+    var distance = ((centerX-this.goalX)**2 + (centerY-this.goalY)**2)**0.5
+    if ( distance <30)   {
+      //this.updateGoal(p);
+      this.gameOver = 1;
+    }
+
+
+  } else {
+    this.translate(0,0);
+    this.rotatePolygon(null, this.goalX, this.goalY);
   }
-  centerX /= numUsers;
-  centerY /= numUsers;
-  for (let user of floor.users) {
-    this.drawCenterMassConnectors(user.x, user.y, centerX, centerY);
-  }
-  const distToGoal = this.dist(centerX, centerY, this.goalX, this.goalY);
-  this.drawCircle(centerX, centerY, CENTER_RADIUS, this.distToColor(distToGoal));
-
-  this.drawGoal();
-  var distance = ((centerX-this.goalX)**2 + (centerY-this.goalY)**2)**0.5
-  if ( distance <30)   {
-    this.updateGoal(p);
-  }
-
 };
 
 /** Export **/
