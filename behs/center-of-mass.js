@@ -23,10 +23,19 @@ const COLORS = {
   BLACK: [0, 0, 0]
 };
 
+
 const CENTER_RADIUS = 20;
 const GOAL_RADIUS = 10;
 const goalX, goalY = parseInt(Math.random() * Display.width);
 const MASS_CONNECTORS_STROKE_WEIGHT = 4;
+
+// Create constants for hole specs.
+const HOLE_DIAMETER = 20;
+const HOLE_X = parseInt(Math.random() * Display.width);
+const HOLE_Y = parseInt(Math.random() * Display.height);
+
+// Other vars which aren't consts
+var gameOver = 0; // 0: still playing; 1: done playing (rotating)
 
 /** Helper Functions **/
 const drawCircle = function(x, y, r, color) {
@@ -94,6 +103,18 @@ pb.setup = function(p) {
 
 pb.draw = function(floor, p) {
   this.clear();
+  /*
+  //this.rect(0,0,20,40);
+  this.translate(Display.width/2+170,50);
+  this.rect(0,0,5,5);
+  this.angleMode(this.RADIANS);
+  this.rotate(this.PI/3);
+  this.rect(0,0,20,40);
+  this.translate(40, 40);
+  this.rect(0,0,20,40);
+  //this.rect(Display.width/2,Display.width/2,20,40);
+  */
+
   let centerX = 0, centerY = 0, numUsers = 0;
 
   for (let user of floor.users) {
@@ -116,6 +137,7 @@ pb.draw = function(floor, p) {
   if ( distance <30)   {
     this.updateGoal(p);
   }
+
 };
 
 /** Export **/
