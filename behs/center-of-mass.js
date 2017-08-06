@@ -16,11 +16,17 @@ import * as Display from 'display';
 const pb = new P5Behavior();
 
 const COLORS = {
-  RED: [255, 0, 0]
+  RED: [255, 0, 0],
+  GREEN: [0, 255, 0],
+  BLUE: [0, 0, 255],
+  GRAY: [155, 155, 155],
+  BLACK: [0, 0, 0]
 };
 
 const CENTER_RADIUS = 20;
 const GOAL_RADIUS = 10;
+const goalX, goalY = parseInt(Math.random() * Display.width);
+const MASS_CONNECTORS_STROKE_WEIGHT = 4;
 
 /** Helper Functions **/
 const drawCircle = function(x, y, r, color) {
@@ -30,6 +36,22 @@ const drawCircle = function(x, y, r, color) {
   this.ellipse(x, y, r * 2, r * 2);
 };
 
+const drawLine = function(x1, y1, x2, y2, strokeColor, strokeWeight) {
+  this.strokeWeight(strokeWeight);
+  this.stroke(strokeColor);
+  this.line(x1, y1, x2, y2);
+  this.restoreDefaults();
+};
+
+const drawCenterMassConnectors = function (x1, y1, x2, y2) {
+  this.drawLine(x1, y1, x2, y2, COLORS.GREEN, MASS_CONNECTORS_STROKE_WEIGHT);
+};
+
+const restoreDefaults = function() {
+    // Reset defaults for fill/stroke colors.
+    this.strokeWeight(1);
+    this.stroke(COLORS.GRAY);
+};
 
 const drawGoal = function(){
   this.drawCircle(this.goalX, this.goalY, GOAL_RADIUS, COLORS.RED);
@@ -58,12 +80,13 @@ const distToColor = function(d) {
   return this.color(colStr);
 };
 
-
 /** Lifecycle Functions **/
 pb.setup = function(p) {
   this.drawCircle = drawCircle;
+  this.drawLine = drawLine;
+  this.drawCenterMassConnectors = drawCenterMassConnectors;
+  this.restoreDefaults = restoreDefaults;
   this.drawGoal = drawGoal;
-  this.drawCircle = drawCircle;
   this.distToColor = distToColor;
   this.updateGoal = updateGoal;
   this.updateGoal();
@@ -84,7 +107,7 @@ pb.draw = function(floor, p) {
   const distToGoal = this.dist(centerX, centerY, this.goalX, this.goalY);
   this.drawCircle(centerX, centerY, CENTER_RADIUS, this.distToColor(distToGoal));
   for (let user of floor.users) {
-    this.line(user.x, user.y, centerX, centerY);
+    this.drawCenterMassConnectors(user.x, user.y, centerX, centerY);
   }
 
   this.drawGoal();

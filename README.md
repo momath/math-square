@@ -2,8 +2,6 @@
 
 ## Overview
 
-test commit - delete this
-
 The _Math Square_ is a walkable floor with a full-color 576x576 pixel display, overlaid with a 72x72 binary (on-off) sensor grid.
 The floor is made up of 81 (9x9) identical squares, each with a 64x64 LED display and 8x8 touch sensors.
 The display on the floor is mapped to an [Electron](https://electron.atom.io/) browser window loading this directory to display interactive behaviors.
