@@ -31,9 +31,47 @@ const drawCircle = function(x, y, r, color) {
   this.ellipse(x, y, r * 2, r * 2);
 };
 
+const distToColor = function(d) {
+  const corners = [
+    [0, 0], 
+    [0, Display.height],
+    [Display.width, 0],
+    [Display.width, Display.height]
+  ];
+  const dists = corners.map(point => this.dist(point[0], point[1], goalX, goalY));
+  const maxDist = this.max(dists);
+  const MIDPOINT = 0.3;
+  const ratio = d / maxDist;
+  const red = this.color(255, 0, 0);
+  const blue = this.color(0, 0, 255);
+  const sat = parseInt(this.abs(ratio - MIDPOINT) * 100);
+  const colStr = 'hsb(' + this.hue(ratio > MIDPOINT ? blue : red) + ', ' + sat + '%, 100%)';
+  return this.color(colStr);
+  /*
+  const red = this.color(255, 0, 0);
+  const blue = this.color(0, 0, 255);
+  return this.lerpColor(red, blue, d / maxDist);
+  */
+  /*
+  const green = this.color(0, 255, 0);
+  const red = this.color(255, 0, 0);
+  return this.lerpColor(green, red, d / maxDist);
+  */
+  /*
+  this.colorMode(this.HSL);
+  const red = this.color('#f00');
+  const blue = this.color('#00f');
+  const HSLres = this.lerpColor(red, blue, d / maxDist);
+  const RGBres = [this.red(HSLres), this.green(HSLres), this.blue(HSLres)];
+  this.colorMode(this.RGB);
+  return RGBres;
+  */
+}
+
 /** Lifecycle Functions **/
 pb.setup = function(p) {
   this.drawCircle = drawCircle;
+  this.distToColor = distToColor;
   goalX = parseInt(Math.random() * Display.width);
   goalY = parseInt(Math.random() * Display.height);
 };
@@ -49,7 +87,8 @@ pb.draw = function(floor, p) {
   }
   centerX /= numUsers;
   centerY /= numUsers;
-  this.drawCircle(centerX, centerY, CENTER_RADIUS);
+  const distToGoal = this.dist(centerX, centerY, goalX, goalY);
+  this.drawCircle(centerX, centerY, CENTER_RADIUS, this.distToColor(distToGoal));
   for (let user of floor.users) {
     this.line(user.x, user.y, centerX, centerY);
   }
@@ -63,6 +102,6 @@ export const behavior = {
   init: pb.init.bind(pb),
   frameRate: 'sensors',
   render: pb.render.bind(pb),
-  numGhosts: 4
+  numGhosts: 0
 };
 export default behavior;
