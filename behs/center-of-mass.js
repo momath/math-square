@@ -21,7 +21,6 @@ const COLORS = {
 
 const CENTER_RADIUS = 20;
 const GOAL_RADIUS = 10;
-const goalX, goalY = parseInt(Math.random() * Display.width);
 
 /** Helper Functions **/
 const drawCircle = function(x, y, r, color) {
@@ -31,6 +30,16 @@ const drawCircle = function(x, y, r, color) {
   this.ellipse(x, y, r * 2, r * 2);
 };
 
+
+const drawGoal = function(){
+
+  this.drawCircle(this.goalX, this.goalY, GOAL_RADIUS, COLORS.RED);
+}
+
+const updateGoal = function(){
+  this.goalX = parseInt(Math.random() * Display.width * (2/3) + (Display.width * (1/6)));
+  this.goalY = parseInt(Math.random() * Display.height * (2/3) + (Display.height * (1/6)));
+}
 const distToColor = function(d) {
   const corners = [
     [0, 0], 
@@ -68,13 +77,16 @@ const distToColor = function(d) {
   */
 }
 
+
 /** Lifecycle Functions **/
 pb.setup = function(p) {
   this.drawCircle = drawCircle;
+  this.drawGoal = drawGoal;
+  this.drawCircle = drawCircle;
   this.distToColor = distToColor;
-  goalX = parseInt(Math.random() * Display.width);
-  goalY = parseInt(Math.random() * Display.height);
-};
+  this.updateGoal = updateGoal;
+  this.updateGoal();
+
 
 pb.draw = function(floor, p) {
   this.clear();
@@ -84,6 +96,7 @@ pb.draw = function(floor, p) {
     centerY += user.y;
     numUsers++;
     pb.drawUser(user);
+
   }
   centerX /= numUsers;
   centerY /= numUsers;
@@ -93,7 +106,14 @@ pb.draw = function(floor, p) {
     this.line(user.x, user.y, centerX, centerY);
   }
 
-  this.drawCircle(goalX, goalY, GOAL_RADIUS, COLORS.RED);
+  this.drawGoal();
+  var distance = ((centerX-this.goalX)**2 + (centerY-this.goalY)**2)**0.5
+  if ( distance <30)   {
+    this.updateGoal(p);
+  }else{
+    console.log(distance);
+  }
+
 };
 
 /** Export **/
@@ -102,6 +122,6 @@ export const behavior = {
   init: pb.init.bind(pb),
   frameRate: 'sensors',
   render: pb.render.bind(pb),
-  numGhosts: 0
+  numGhosts: 2
 };
 export default behavior;
