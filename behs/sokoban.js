@@ -341,7 +341,7 @@ var switchingRoom = true;
 var roomSwitchTween;
 
 var rooms = [['##################',
-  '# xG             #',
+  '# x G            #',
   '######           #',
   '#                #',
   '#           # ####',
