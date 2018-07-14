@@ -43,7 +43,7 @@ class App {
       width: 800,
       height: 1000,
       minWidth: 600,
-      minHeight: 800,
+      minHeight: 600,
       backgroundColor: '#000000',
       webPreferences: {
         nodeIntegration: true,
