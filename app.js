@@ -43,7 +43,7 @@ class App {
       width: 800,
       height: 1000,
       minWidth: 600,
-      minHeight: 800,
+      minHeight: 600,
       backgroundColor: '#000000',
       webPreferences: {
         nodeIntegration: true,
@@ -90,7 +90,7 @@ class App {
       }
       win.y -= win.height - 576;
       win.movable = false;
-      win.resizable = false;
+      win.resizable = true;
       win.minimizable = false;
       win.alwaysOnTop = true;
       win.frame = false;
