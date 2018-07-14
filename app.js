@@ -90,7 +90,7 @@ class App {
       }
       win.y -= win.height - 576;
       win.movable = false;
-      win.resizable = false;
+      win.resizable = true;
       win.minimizable = false;
       win.alwaysOnTop = true;
       win.frame = false;
